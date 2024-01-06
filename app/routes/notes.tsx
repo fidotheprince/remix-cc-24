@@ -10,6 +10,7 @@ interface Note {
     title: string;
     content: string;
 }
+// Use action data can be set at any level
 
 export default function NotesPage() {
 
@@ -43,6 +44,12 @@ export async function action({ request }: ActionFunctionArgs) {
     const formData = await request.formData();
     //convert the formData object into a plain object
     const noteData = Object.fromEntries(formData);
+
+    //can return a json response if there is an error
+    if (typeof Number(noteData.title) === 'number') {
+        return json({ error: 'Title cannot be a number' }, { status: 400 });
+    }
+
     //access json data
     const existingNotes = await getStoredNotes();
     //add an id to the noteData object
