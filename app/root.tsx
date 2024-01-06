@@ -1,5 +1,6 @@
-import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
+import MainNavigation from "~/components/MainNavigation";
+
 import {
   Links,
   LiveReload,
@@ -9,9 +10,14 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
-];
+import styles from './styles/main.css'
+
+//register links here: returns an array of objects with rel and href properties
+export const links: LinksFunction = () => {
+  return [{rel: 'stylesheet', href: styles}]
+} ;
+
+//app level root component
 
 export default function App() {
   return (
@@ -23,6 +29,10 @@ export default function App() {
         <Links />
       </head>
       <body>
+        {/*Outlet component will be replaced by the contents of your actual page components*/}
+        <header>
+          <MainNavigation />
+        </header>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
