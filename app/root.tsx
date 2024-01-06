@@ -15,8 +15,7 @@ import styles from './styles/main.css'
 //register links here: returns an array of objects with rel and href properties
 export const links: LinksFunction = () => {
   return [{rel: 'stylesheet', href: styles}]
-} ;
-
+};
 //app level root component
 
 export default function App() {
@@ -39,5 +38,20 @@ export default function App() {
         <LiveReload />
       </body>
     </html>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+
+  const response : string = error?.message ? error.message : ''
+
+  return (
+    <div>
+      <h1>App Error</h1>
+      <main className="error">
+        <h1>An error occured!</h1>
+        <p>{response}</p>
+      </main>
+    </div>
   );
 }
