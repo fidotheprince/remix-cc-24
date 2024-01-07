@@ -21,7 +21,7 @@ export default function NotesPage() {
     return (
         <main>
             <NewNote />
-            <NoteList notes={notes}/>
+            {notes.length > 0 ? <NoteList notes={notes}/> : <p>No notes yet</p>}
         </main>
      );
 }
@@ -46,9 +46,9 @@ export async function action({ request }: ActionFunctionArgs) {
     const noteData = Object.fromEntries(formData);
 
     //can return a json response if there is an error
-    if (typeof Number(noteData.title) === 'number') {
-        return json({ error: 'Title cannot be a number' }, { status: 400 });
-    }
+    // if (typeof Number(noteData.title) === 'number') {
+    //     return json({ error: 'Title cannot be a number' }, { status: 400 });
+    // }
 
     //access json data
     const existingNotes = await getStoredNotes();
@@ -65,4 +65,11 @@ export async function action({ request }: ActionFunctionArgs) {
 //surface the styling links from the NewNote component
 export function links() {
     return [...newNoteLinks(), ...noteListLinks()];
+}
+
+//meta at page level overrides the meta at the app level
+export function meta() {
+    return [
+        { title: 'Notes'}
+    ]
 }
