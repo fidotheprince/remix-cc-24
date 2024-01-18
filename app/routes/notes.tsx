@@ -41,6 +41,7 @@ export async function loader() {
 //action function is used to capture the form data and send it to the server
 //data object contains the form data and is destructured below
 export async function action({ request }: ActionFunctionArgs) {
+    //console.log('url', request.url.split('?'));
     const formData = await request.formData();
     //convert the formData object into a plain object
     const noteData = Object.fromEntries(formData);
